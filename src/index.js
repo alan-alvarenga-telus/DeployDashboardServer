@@ -14,10 +14,18 @@ const port = 8888;
 const exec = util.promisify(require('child_process').exec);
 
 app.get('/deploy/new', async (req, res, next) => {
-  result = {};
-  const { stdout, stderr } = await exec("./shell/new-deploy.sh");
-  console.log(stdout);
-  res.json(stdout);
+  try {
+    const { stdout, stderr } = await exec("./shell/new-deploy.sh");
+    res.json({
+      data: stdout,
+      error: stderr
+    });
+  } catch (err) {
+    res.json({
+      data: null,
+      error: err.message
+    })
+  }
 });
 
 app.listen(port, () => console.log(`Listening on port ${port} ...`));
