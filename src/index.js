@@ -15,7 +15,7 @@ const exec = util.promisify(require('child_process').exec);
 
 app.get('/deploy/new', async (req, res, next) => {
   try {
-    const { stdout, stderr } = await exec("./shell/new-deploy.sh");
+    const { stdout, stderr } = await exec("/apps/infra/ocelot/DeployDashboardServer/shell/new-deploy.sh");
     res.json({
       data: stdout,
       error: stderr
