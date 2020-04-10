@@ -28,4 +28,18 @@ app.get('/deploy/new', async (req, res, next) => {
   }
 });
 
+app.get('/deploy/status', async (req, res, next) => {
+  try {
+    const { stdout, stderr } = await exec("pm2 list");
+    res.json({
+      data: stdout,
+    });
+  } catch (error) {
+    res.json({
+      data: null,
+      error: error,
+    });
+  }
+})
+
 app.listen(port, () => console.log(`Listening on port ${port} ...`));
