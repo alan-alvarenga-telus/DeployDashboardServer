@@ -1,10 +1,10 @@
 #!/bin/bash
-ROOT="/work/users/fomc"
-UI="$ROOT/CustOM/src/ui"
+ROOT="/apps/infra/ocelot/CustOM-FIFAOrderManagementConsole"
+UI="$ROOT/src/ui"
 BUILD="$UI/build"
-BUILD_PID="$(ps -x | grep server.js | grep node | awk '{print $1}')"
+BUILD_PID="$(pm2 list | grep fomc-middleware-8383 | awk '{print $12}')"
 echo "Kill signal sent to FOMC PID: $BUILD_PID"
-kill "$BUILD_PID"
+pm2 stop 0
 echo "Shutdown complete"
 echo "Pulling new version"
 eval "$(ssh-agent -s)"
@@ -17,5 +17,5 @@ npm run build
 echo "Build completed successfuly"
 echo "all hail the new version"
 echo "Starting app ..."
-PORT=8383 node server.js & disown
+pm2 start 0
 echo "FOMC started successfuly"

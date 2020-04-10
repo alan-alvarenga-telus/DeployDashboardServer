@@ -4,8 +4,7 @@
   "description": "Deploy Dashboard Rest API",
   "main": "src/index.js",
   "scripts": {
-    "start": "nodemon src/index.js",
-    "start:prod": "node src/index.js"
+    "start": "node src/index.js"
   },
   "author": "Alan Alvarenga",
   "license": "MIT",
